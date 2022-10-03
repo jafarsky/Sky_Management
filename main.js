@@ -22,16 +22,14 @@ let searchInput = document.getElementById('searchInput');
 let tbody = document.getElementById('tbody');
 let mood = 'create';
 let searchMood = 'Name';
-let dataProduct;
+var dataProduct = [];
 let copyEditIndex = 0;   // عن طريق اخذ نسخة منه his block خارج local حتى نحل مشكلة عدم استخدام المتغير global هذا متغير
 var totalResult = 0;
 
 
-if (localStorage.product != null ) {
+
+if (localStorage.product != 'undefined') {
     dataProduct = JSON.parse(localStorage.product);
-}
-else {
-    dataProduct = [];
 }
 
 
@@ -47,7 +45,7 @@ function getCurrentDateAndTime()
         currentTime.innerHTML += data.data;
 
     }).catch(response => console.error(response.status));
-    /////////////////////////////////////////////////////
+    /***************************************************/
     fetch('http://api.aladhan.com/v1/currentDate?zone=Asia/Baghdad')
     .then((response) => {
         if (response.ok)    return response.json();
@@ -155,16 +153,12 @@ function create_edit()
             edit.classList.add('hidden');
             clearData();
         }
-        productName.removeAttribute('required');
-        price.removeAttribute('required');
-        category.removeAttribute('required');
-
     }
     else
     {
-        if (productName.value == '')    {   productName.focus();    productName.setAttribute('required', '');   }
-        else if (price.value == '')     {   price.focus();          price.setAttribute('required', '');         }
-        else                            {   category.focus();       category.setAttribute('required', '');      }
+        if (productName.value == '')       productName.focus();
+        else if (price.value == '')        price.focus();
+        else                               category.focus();
     }
     localStorage.setItem('product', JSON.stringify(dataProduct));
 
