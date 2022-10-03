@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* font we use it */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+
+
+@layer base {
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+                                                        -webkit-appearance: none;
+                                                        margin: 0;
+                                                }
+}
+
+
+@layer components {
+
+    body {
+      @apply font-Raleway scrollbar;
+    }
+
+    main a {
+        @apply inline-block px-6 py-2.5 bg-gray-700 text-gray-100 font-bold text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-800 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out;
+    }
+
+    main #currentDate {
+        @apply bg-gray-700 text-gray-300 font-medium inline-flex items-center px-2.5 py-0.5 rounded;
+    }
+
+    main #currentTime {
+        @apply bg-gray-700 text-gray-300 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded;
+    }
+
+    #moonBtn,
+    #sunBtn {
+        @apply p-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700;
+    }
+
+    #create {
+        @apply text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 select-none;
+    }
+
+    #edit {
+        @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+    }
+
+    form input {
+        @apply block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:border-purple-600;
+    }
+
+    #searchNameBtn,
+    #searchCategoryBtn {
+        @apply flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600;
+    }
+
+    #searchInput {
+        @apply block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500;
+    }
+
+    #searchBtn {
+        @apply absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+    }
+
+    #clearAll {
+        @apply py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-red-500 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-red-500 dark:hover:bg-gray-700;
+    }
+
+    table thead tr th {
+        @apply py-3 px-6;
+    }
+
+    table tbody tr td {
+        @apply py-4 px-6;
+    }
+}
+
+
+@layer utilities {
+  
+    .scrollbar::-webkit-scrollbar {
+      width: 11px;
+      height: 0px;
+    }
+  
+    .scrollbar::-webkit-scrollbar-track {
+        border-radius: 1px;
+        background: #3d405b;
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: #e5e5e5;
+        border-radius: 100vh;
+        border: 3px solid #3d405b;
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+        /*background: #adb5bd;*/
+    }
+}
