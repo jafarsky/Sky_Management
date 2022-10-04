@@ -35,6 +35,7 @@ if (localStorage.product != undefined) {
 }
 
 
+
 async function getCurrentTime()
 {
     try {
@@ -188,12 +189,12 @@ function trBlock(k)
                     ${dataProduct[k].category}
                 </td>
                 <td class="flex">
-                    <a onclick="editData(${k})" href="#inputs" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-4">
+                    <button onclick="editData(${k})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-4">
                         Edit
-                    </a>
-                    <a onclick="deleteProduct(${k})" class="font-medium text-red-600 dark:text-red-500 hover:underline">
+                    </button>
+                    <button onclick="deleteProduct(${k})" class="font-medium text-red-600 dark:text-red-500 hover:underline">
                         Delete
-                    </a>
+                    </button>
                 </td>
             </tr>`;
     return x;
