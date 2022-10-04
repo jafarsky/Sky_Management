@@ -1,3 +1,6 @@
+const url_time = 'http://api.aladhan.com/v1/currentTime?zone=Asia/Baghdad';
+const url_date = 'http://api.aladhan.com/v1/currentDate?zone=Asia/Baghdad';
+
 let currentDate = document.getElementById('currentDate');
 let currentTime = document.getElementById('currentTime');
 let productName = document.getElementById('productName');
@@ -32,35 +35,34 @@ if (localStorage.product != undefined) {
 }
 
 
-function getCurrentDateAndTime()
+async function getCurrentTime()
 {
-    fetch('http://api.aladhan.com/v1/currentTime?zone=Asia/Baghdad')
-    .then((response) => {
-        if (response.ok)    return response.json();
-        else                return Promise.reject(response);
-    })
-    .then((data) => {
+    try {
+        const response = await axios.get(url_time);
+        currentTime.innerHTML = response.data.data;
 
-        currentTime.innerHTML = data.data;
-
-    }).catch(response => console.error(response.status));
-    /***************************************************/
-    fetch('http://api.aladhan.com/v1/currentDate?zone=Asia/Baghdad')
-    .then((response) => {
-        if (response.ok)    return response.json();
-        else                return Promise.reject(response);
-    })
-    .then((data) => {
-
-        currentDate.innerHTML = data.data;
-
-    }).catch(response => console.error(response.status));
+    }   catch (error) {
+            console.log(error);
+        }
 }
-getCurrentDateAndTime();
+
+async function getCurrentDate()
+{
+    await getCurrentTime();
+
+    try {
+        const response = await axios.get(url_date);
+        currentDate.innerHTML = response.data.data;
+
+    }   catch (error) {
+            console.log(error);
+        }
+}
+getCurrentDate();
 
 
 window.onscroll = _ =>  {   if (scrollY > 1111)  scrollBtn.classList.remove("hidden");
-                            else                scrollBtn.classList.add("hidden");
+                            else                 scrollBtn.classList.add("hidden");
                         }
 
 sunBtn.onclick = function() {
