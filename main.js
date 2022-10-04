@@ -12,7 +12,6 @@ let countLb = document.getElementById('countLb');
 let body = document.querySelector('body');
 let sunBtn = document.getElementById('sunBtn');
 let moonBtn = document.getElementById('moonBtn');
-let getStarted = document.getElementById('getStarted');
 let create = document.getElementById('create');
 let edit = document.getElementById('edit');
 let clearAll = document.getElementById('clearAll');
@@ -28,7 +27,7 @@ var totalResult = 0;
 
 
 
-if (localStorage.product != 'undefined') {
+if (localStorage.product != undefined) {
     dataProduct = JSON.parse(localStorage.product);
 }
 
@@ -42,7 +41,7 @@ function getCurrentDateAndTime()
     })
     .then((data) => {
 
-        currentTime.innerHTML += data.data;
+        currentTime.innerHTML = data.data;
 
     }).catch(response => console.error(response.status));
     /***************************************************/
@@ -53,7 +52,7 @@ function getCurrentDateAndTime()
     })
     .then((data) => {
 
-        currentDate.innerHTML += data.data;
+        currentDate.innerHTML = data.data;
 
     }).catch(response => console.error(response.status));
 }
@@ -63,14 +62,6 @@ getCurrentDateAndTime();
 window.onscroll = _ =>  {   if (scrollY > 1111)  scrollBtn.classList.remove("hidden");
                             else                scrollBtn.classList.add("hidden");
                         }
-
-function scrollUP()
-{
-    scroll ({
-                top: 0,
-                behavior: 'smooth',
-            });
-}
 
 sunBtn.onclick = function() {
     body.classList.remove('dark');
@@ -83,25 +74,6 @@ moonBtn.onclick = function() {
     this.classList.add('hidden');
     sunBtn.classList.remove('hidden')
 }
-
-function toInput()
-{
-    if (body.offsetWidth > 751)
-    {
-        scroll ({
-                top: 679,
-                behavior: 'smooth',
-            });
-    }
-    else
-    {
-        scroll ({
-                top: 699,
-                behavior: 'smooth',
-            });
-    }
-}
-
 
 /************************** create product ***/
 function create_edit()
@@ -153,12 +125,16 @@ function create_edit()
             edit.classList.add('hidden');
             clearData();
         }
+        productName.removeAttribute('required');
+        price.removeAttribute('required');
+        category.removeAttribute('required');
+
     }
     else
     {
-        if (productName.value == '')       productName.focus();
-        else if (price.value == '')        price.focus();
-        else                               category.focus();
+        if (productName.value == '')       {   productName.focus();    productName.setAttribute('required', '');   }
+        else if (price.value == '')        {   price.focus();          price.setAttribute('required', '');         }
+        else                               {   category.focus();       category.setAttribute('required', '');      }
     }
     localStorage.setItem('product', JSON.stringify(dataProduct));
 
@@ -210,12 +186,12 @@ function trBlock(k)
                     ${dataProduct[k].category}
                 </td>
                 <td class="flex">
-                    <button onclick="editData ( ${k} )" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-4">
+                    <a onclick="editData(${k})" href="#inputs" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-4">
                         Edit
-                    </button>
-                    <button onclick="deleteProduct ( ${k} )" class="font-medium text-red-600 dark:text-red-500 hover:underline">
+                    </a>
+                    <a onclick="deleteProduct(${k})" class="font-medium text-red-600 dark:text-red-500 hover:underline">
                         Delete
-                    </button>
+                    </a>
                 </td>
             </tr>`;
     return x;

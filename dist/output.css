@@ -557,6 +557,11 @@ input[type="number"]::-webkit-inner-spin-button,
   --tw-backdrop-sepia:  ;
 }
 
+html {
+  scroll-behavior: smooth;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
   font-family: Raleway, sans-serif;
 }
@@ -579,6 +584,10 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover {
   /*background: #adb5bd;*/
+}
+
+a {
+  cursor: pointer;
 }
 
 main a {
@@ -636,22 +645,7 @@ main a:active {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-main #currentDate {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 0.25rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem;
-  font-weight: 500;
-  --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity));
-}
-
-main #currentTime {
+main .currentTime {
   display: inline-flex;
   align-items: center;
   border-radius: 0.25rem;
@@ -663,6 +657,21 @@ main #currentTime {
   padding-bottom: 0.125rem;
   font-size: 0.75rem;
   line-height: 1rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
+main .currentDate {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
   font-weight: 500;
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
