@@ -6,7 +6,7 @@ module.exports = {
       transparent: 'transparent',
     },
   },
-  content: ["./**/*.{html,js}"],
+  content: ["index.html"],
   theme: {
     extend: {
       backgroundImage: {
