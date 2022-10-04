@@ -28,6 +28,8 @@ var dataProduct = [];
 let copyEditIndex = 0;   // عن طريق اخذ نسخة منه his block خارج local حتى نحل مشكلة عدم استخدام المتغير global هذا متغير
 var totalResult = 0;
 
+const axios = require('axios');
+
 
 
 if (localStorage.product != undefined) {
