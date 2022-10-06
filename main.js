@@ -336,7 +336,6 @@ function deleteProduct(i)
     dataProduct.splice(i,1);
     localStorage.product = JSON.stringify(dataProduct);
 
-    
     container_cte_cou.classList.remove('md:grid-cols-1');
     container_cte_cou.classList.add('md:grid-cols-2');
     count.classList.remove('hidden');
