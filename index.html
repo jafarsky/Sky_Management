@@ -131,8 +131,15 @@
 
         <!----------------------- outputs ------------------------------>
         <div id="outputs" class="h-full bg-gray-50 dark:bg-slate-900 py-16">
-            <!------------------------------------- search ---------------------->
-            <div class="bg-gray-200 dark:bg-gray-700 w-11/12 mx-auto py-6 rounded-lg">
+            <!------------------------------------------------------ ! aleart: no product ------->
+            <div id="aleartNoProducts" class="w-fit m-auto p-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
+                <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                <span class="font-semibold pr-3">There are no products !</span>
+            </div>
+            <!--// ! aleart : no products -->
+            <!----------------------------------------- products cotent ------------------->
+            <div id="productsContent" class="bg-gray-200 dark:bg-gray-700 w-11/12 mx-auto py-6 rounded-lg">
+                <!----------------------- search --------->
                 <form class="w-11/12 sm:w-10/12 mx-auto pb-4">
                     <div class="flex">
                         <button id="searchNameBtn" onclick="getSearchMood(this.id)" class="rounded-l-lg" type="button">
@@ -153,8 +160,8 @@
     
                 <!------------ clear all -->
                 <div class="text-center py-3">
-                    <button id="clearAll" onclick="deleteAll()" class="hidden">
-                        Clear All
+                    <button id="clearAll" onclick="deleteAll()">
+                        Clear All (<span id="countProducts"></span>)
                     </button>
                 </div>
                 <!--// clear all //-->
@@ -199,6 +206,7 @@
                 </div>
                 <!--// table //-->
             </div>
+            <!--// products content //-->
         </div>
         <!--// outputs//-->
 

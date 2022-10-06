@@ -17,17 +17,18 @@ let sunBtn = document.getElementById('sunBtn');
 let moonBtn = document.getElementById('moonBtn');
 let create = document.getElementById('create');
 let edit = document.getElementById('edit');
-let clearAll = document.getElementById('clearAll');
+let aleartNoProducts = document.getElementById('aleartNoProducts');
+let productsContent = document.getElementById('productsContent');
+let countProducts = document.getElementById('countProducts');
 let searchNameBtn = document.getElementById('searchNameBtn');
 let searchCategoryBtn = document.getElementById('searchCategoryBtn');
 let searchInput = document.getElementById('searchInput');
 let tbody = document.getElementById('tbody');
 let mood = 'create';
 let searchMood = 'Name';
-var dataProduct = [];
 let copyEditIndex = 0;   // عن طريق اخذ نسخة منه his block خارج local حتى نحل مشكلة عدم استخدام المتغير global هذا متغير
 var totalResult = 0;
-
+var dataProduct = [];
 
 
 if (localStorage.product != undefined) {
@@ -91,26 +92,27 @@ function create_edit()
         category: category.value.toLowerCase(),
     } //--------------------------------------- newProduct{}
 
-    if ((productName.value != '') && (price.value != '') && (category.value != ''))
+    let isCount = (newProduct.count < 100)  ?  true  :  false;
+
+    if ((isCount) && (productName.value != '') && (price.value != '') && (category.value != ''))
     {
         if (mood === 'create')
         {
-            if (newProduct.count < 100)
-            {
-                if (newProduct.count > 1) //..................... if (count > 1)
-                    for (let i = 1 ; i < newProduct.count ; i++)
-                        dataProduct.push(newProduct);
-                
+            count.removeAttribute('required');
+
+            if (newProduct.count > 1) //..................... if (count > 1)
+                for (let i = 1 ; i < newProduct.count ; i++)
+                    dataProduct.push(newProduct);
+
             dataProduct.push(newProduct);
             clearData();
-            }
-            else
-            {
-                count.value = '';
-                countLb.innerHTML = 'Max Count: 99'
-                count.focus();
-            }
+
+            productName.removeAttribute('required');
+            price.removeAttribute('required');
+            category.removeAttribute('required');
+            count.removeAttribute('required');
         }
+
         else //.................................. when (mood === 'edit')
         {
             dataProduct[copyEditIndex] = newProduct; //... copyEditIndex: have th value of product index we r wanna to edit it ,,, its = i
@@ -118,7 +120,7 @@ function create_edit()
             //... we put the mood back to its default ,, to create
             mood = 'create';
             //create.innerHTML = 'Create'; 
-            
+
             //.. make input count block and return style of button also to default
             container_cte_cou.classList.remove('md:grid-cols-1');
             container_cte_cou.classList.add('md:grid-cols-2');
@@ -128,17 +130,21 @@ function create_edit()
             edit.classList.add('hidden');
             clearData();
         }
-        productName.removeAttribute('required');
-        price.removeAttribute('required');
-        category.removeAttribute('required');
-
     }
     else
     {
-        if (productName.value == '')       {   productName.focus();    productName.setAttribute('required', '');   }
-        else if (price.value == '')        {   price.focus();          price.setAttribute('required', '');         }
-        else                               {   category.focus();       category.setAttribute('required', '');      }
+        if      (productName.value == '')   {  productName.focus();    productName.setAttribute('required', '');  }
+        else if (price.value       == '')   {  price.focus();          price.setAttribute('required', '');        }
+        else if (category.value    == '')   {  category.focus();       category.setAttribute('required', '');     }
+
+        else {
+            countLb.innerHTML = 'Max Count is 99';
+            count.setAttribute('required', '');
+            count.value='';
+            count.focus();
+        }
     }
+
     localStorage.setItem('product', JSON.stringify(dataProduct));
 
     showData();
@@ -208,17 +214,18 @@ function showData()
 
     if (dataProduct.length > 0)
     {
-
         for (let i = 0 ; i < dataProduct.length ; i++)
             table += trBlock(i);
 
-        clearAll.classList.remove('hidden');
-        clearAll.innerHTML = `Clear All (${dataProduct.length})`;
+        aleartNoProducts.classList.add('hidden');
+        productsContent.classList.remove('hidden');
+        countProducts.innerHTML = dataProduct.length;
     }
     else {
-        clearAll.classList.add('hidden');
+        aleartNoProducts.classList.remove('hidden');
+        productsContent.classList.add('hidden');
 
-        if (mood == 'edit')  
+        if (mood == 'edit')
             clearData();
     }
     tbody.innerHTML = table;
@@ -237,7 +244,7 @@ function clearData()
     totalResult = '';
     category.value = '';
     count.value = '';
-    countLb.innerHTML = 'Count'
+    countLb.innerHTML = 'Count';
 } //------------------------- clearData()
 
 
@@ -329,5 +336,14 @@ function deleteProduct(i)
     dataProduct.splice(i,1);
     localStorage.product = JSON.stringify(dataProduct);
 
+    
+    container_cte_cou.classList.remove('md:grid-cols-1');
+    container_cte_cou.classList.add('md:grid-cols-2');
+    count.classList.remove('hidden');
+    count.classList.remove('hidden');
+    countLb.classList.remove('hidden');
+    create.classList.remove('hidden');
+    edit.classList.add('hidden');
     showData();
+    clearData();
 } //-------------- deleteProduct()
