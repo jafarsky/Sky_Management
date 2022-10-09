@@ -92,17 +92,15 @@ function create_edit()
         category: category.value.toLowerCase(),
     } //--------------------------------------- newProduct{}
 
-    let isCount = (newProduct.count < 100)  ?  true  :  false;
+    if (newProduct.count == '')     newProduct.count = 1;
+    
+    let isCount = (newProduct.count <= 999)  ?  true  :  false;
 
     if ((isCount) && (productName.value != '') && (price.value != '') && (category.value != ''))
     {
         if (mood === 'create')
         {
             count.removeAttribute('required');
-
-            if (newProduct.count > 1) //..................... if (count > 1)
-                for (let i = 1 ; i < newProduct.count ; i++)
-                    dataProduct.push(newProduct);
 
             dataProduct.push(newProduct);
             clearData();
@@ -124,8 +122,6 @@ function create_edit()
             //.. make input count block and return style of button also to default
             container_cte_cou.classList.remove('md:grid-cols-1');
             container_cte_cou.classList.add('md:grid-cols-2');
-            count.classList.remove('hidden');
-            countLb.classList.remove('hidden');
             create.classList.remove('hidden');
             edit.classList.add('hidden');
             clearData();
@@ -138,7 +134,7 @@ function create_edit()
         else if (category.value    == '')   {  category.focus();       category.setAttribute('required', '');     }
 
         else {
-            countLb.innerHTML = 'Max Count is 99';
+            countLb.innerHTML = 'Max Count is 999';
             count.setAttribute('required', '');
             count.value='';
             count.focus();
@@ -195,16 +191,61 @@ function trBlock(k)
                     ${dataProduct[k].category}
                 </td>
                 <td class="flex">
-                    <button onclick="editData(${k})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-4">
-                        Edit
+                    <p class="pr-3">
+                        ${dataProduct[k].count}
+                    </p>
+                    <button onclick="plusCount(${k})" class="pr-1 hover:text-blue-600 dark:hover:text-blue-500">
+                        <svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M2 12c0-2.8 1.6-5.2 4-6.3V3.5C2.5 4.8 0 8.1 0 12s2.5 7.2 6 8.5v-2.2c-2.4-1.1-4-3.5-4-6.3m13-9c-5 0-9 4-9 9s4 9 9 9s9-4 9-9s-4-9-9-9m5 10h-4v4h-2v-4h-4v-2h4V7h2v4h4v2Z"/></svg>
                     </button>
-                    <button onclick="deleteProduct(${k})" class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                        Delete
+                    <button onclick="minusCount(${k})" class="hover:text-red-600 dark:hover:text-red-500">
+                        <svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M17 13H7v-2h10m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2Z"/></svg>
                     </button>
+                </td>
+                <td>
+                    <span class="flex">
+                        <button onclick="editData(${k})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-4">
+                            Edit
+                        </button>
+                        <button onclick="deleteProduct(${k})" class="font-medium text-red-600 dark:text-red-500 hover:underline">
+                            Delete
+                        </button>
+                    </span>
                 </td>
             </tr>`;
     return x;
 } //---------------- trBlock()
+
+
+/******************** plus count one */
+function plusCount(i)
+{
+    if (dataProduct[i].count < 999)
+    {
+        dataProduct[i].count++;
+        localStorage.setItem('product', JSON.stringify(dataProduct));
+
+        clearData();
+        showData();
+    }
+} //---------------------- plusCount()
+
+
+/********************* minus count one */
+function minusCount(i)
+{
+    if (dataProduct[i].count > 1)
+    {
+        dataProduct[i].count--;
+        localStorage.setItem('product', JSON.stringify(dataProduct));
+
+        clearData();
+        showData();
+    }
+    else
+    {
+        deleteProduct(i);
+    }
+} //-------------------- minusCount()
 
 
 /****************** show data ***/
@@ -300,7 +341,6 @@ function deleteAll()
     mood = 'create';
 
     count.classList.remove('hidden');
-    countLb.classList.remove('hidden');
     create.classList.remove('hidden');
     edit.classList.add('hidden');
 } //---------------- deleteAll()
@@ -318,11 +358,10 @@ function editData(i)
     discount.value = dataProduct[i].discount;
     getTotal(); // to get total of price of product we r wanna to edit
     category.value = dataProduct[i].category;
+    count.value = dataProduct[i].count;
 
     container_cte_cou.classList.remove('md:grid-cols-2');
     container_cte_cou.classList.add('md:grid-cols-1');
-    count.classList.add('hidden');
-    countLb.classList.add('hidden');
     edit.classList.remove('hidden');
     create.classList.add('hidden');
 
@@ -338,9 +377,6 @@ function deleteProduct(i)
 
     container_cte_cou.classList.remove('md:grid-cols-1');
     container_cte_cou.classList.add('md:grid-cols-2');
-    count.classList.remove('hidden');
-    count.classList.remove('hidden');
-    countLb.classList.remove('hidden');
     create.classList.remove('hidden');
     edit.classList.add('hidden');
     showData();
