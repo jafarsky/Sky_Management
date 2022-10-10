@@ -8,7 +8,6 @@ let price = document.getElementById('price');
 let ads = document.getElementById('ads');
 let discount = document.getElementById('discount');
 let total = document.getElementById('total');
-let container_cte_cou = document.getElementById('container-cte-cou');
 let category = document.getElementById('category');
 let count = document.getElementById('count');
 let countLb = document.getElementById('countLb');
@@ -113,15 +112,11 @@ function create_edit()
 
         else //.................................. when (mood === 'edit')
         {
-            dataProduct[copyEditIndex] = newProduct; //... copyEditIndex: have th value of product index we r wanna to edit it ,,, its = i
-
             //... we put the mood back to its default ,, to create
             mood = 'create';
-            //create.innerHTML = 'Create'; 
+            
+            dataProduct[copyEditIndex] = newProduct; //... copyEditIndex: have th value of product index we r wanna to edit it ,,, its = i
 
-            //.. make input count block and return style of button also to default
-            container_cte_cou.classList.remove('md:grid-cols-1');
-            container_cte_cou.classList.add('md:grid-cols-2');
             create.classList.remove('hidden');
             edit.classList.add('hidden');
             clearData();
@@ -360,8 +355,6 @@ function editData(i)
     category.value = dataProduct[i].category;
     count.value = dataProduct[i].count;
 
-    container_cte_cou.classList.remove('md:grid-cols-2');
-    container_cte_cou.classList.add('md:grid-cols-1');
     edit.classList.remove('hidden');
     create.classList.add('hidden');
 
@@ -375,8 +368,6 @@ function deleteProduct(i)
     dataProduct.splice(i,1);
     localStorage.product = JSON.stringify(dataProduct);
 
-    container_cte_cou.classList.remove('md:grid-cols-1');
-    container_cte_cou.classList.add('md:grid-cols-2');
     create.classList.remove('hidden');
     edit.classList.add('hidden');
     showData();
